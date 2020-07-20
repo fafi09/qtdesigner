@@ -3,6 +3,7 @@
 #include <QCompleter>
 #include <QStringList>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,6 +33,35 @@ MainWindow::MainWindow(QWidget *parent)
             [=](){
         QMessageBox::about(this,"prompt","login");
     });
+
+    this->timerIdd = this->startTimer(1000);
+
+    connect(ui->pushButton_3, &QPushButton::pressed,
+            [=](){
+        QMessageBox::about(this,"event","is event accept or ignore");
+    });
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    int result = event->key();
+    QString keycode = QString("keyReleaseEvent keycode:%1").arg(result);
+    ui->label_4->setText(keycode);
+    this->killTimer(this->timerIdd);
+}
+
+void MainWindow::timerEvent(QTimerEvent *e)
+{
+    static int i = 0;
+    i++;
+    QString text = QString("i:%1").arg(i);
+    ui->label_4->setText(text);
+
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    QMessageBox::about(this,"mainwin event","mainwin mouse press");
 }
 
 MainWindow::~MainWindow()

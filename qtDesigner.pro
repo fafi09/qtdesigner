@@ -18,11 +18,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mycustomerwidget.cpp
+    mycustomerwidget.cpp \
+    mylabel.cpp \
+    mypushbutton.cpp
 
 HEADERS += \
     mainwindow.h \
-    mycustomerwidget.h
+    mycustomerwidget.h \
+    mylabel.h \
+    mypushbutton.h
 
 FORMS += \
     mainwindow.ui
