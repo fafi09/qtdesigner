@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
             [=](){
         QMessageBox::about(this,"event","is event accept or ignore");
     });
+
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
@@ -50,6 +52,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     this->killTimer(this->timerIdd);
 }
 
+
 void MainWindow::timerEvent(QTimerEvent *e)
 {
     static int i = 0;
@@ -59,9 +62,30 @@ void MainWindow::timerEvent(QTimerEvent *e)
 
 }
 
+
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    QMessageBox::about(this,"mainwin event","mainwin mouse press");
+    //event->ignore();
+   QMessageBox::about(this,"mainwin event","mainwin mouse press");
+   event->ignore();
+   //QMainWindow::mousePressEvent(event);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    int ret = QMessageBox::question(this,"close","close it?");
+    if(ret == QMessageBox::Yes)
+    {
+        //关闭窗口
+        //处理关闭窗口事件，接受事件，事件就不会再往下传递
+       event->accept();
+    }
+    else
+    {
+        //不关闭窗口
+        //忽略事件，事件继续给父组件传递
+        event->ignore();
+    }
 }
 
 MainWindow::~MainWindow()

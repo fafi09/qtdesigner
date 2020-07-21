@@ -19,6 +19,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *event);
     void timerEvent(QTimerEvent *e);
     void mousePressEvent(QMouseEvent *event);
+    void closeEvent(QCloseEvent *event);
 private:
     Ui::MainWindow *ui;
     int timerIdd;
